@@ -5,6 +5,7 @@ import { database } from '../config/firebase';
 export function useWateringListener() {
     const [justWatered, setJustWatered] = useState(false);
     const [lastWateredAt, setLastWateredAt] = useState(null);
+    const [timesWatered, setTimesWatered] = useState(0);
 
     useEffect(() => {
         // Listen to watering events in the database (assumed path: 'watering_events/latest')
@@ -24,18 +25,20 @@ export function useWateringListener() {
                 
                 console.log('Event time:', eventTime, 'Now:', now, 'Difference:', now - eventTime);
                 if (now - eventTime < 5000) {
-                setJustWatered(true);
-                setLastWateredAt(data.timestamp);
-                
-                // Hide the "just got watered" message after 3 seconds
-                setTimeout(() => {
-                    setJustWatered(false);
-                }, 3000);
+                    setJustWatered(true);
+                    setLastWateredAt(data.timestamp);
+                    setTimesWatered(prev => prev+1);
+                    console.log(timesWatered);
+                    
+                    // Hide the "just got watered" message after 3 seconds
+                    setTimeout(() => {
+                        setJustWatered(false);
+                    }, 3000);
                 }
             }
         });
 
         return () => unsubscribe();
     }, []);
-    return { justWatered, lastWateredAt };
+    return { justWatered, lastWateredAt, timesWatered };
 }

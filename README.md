@@ -1,50 +1,51 @@
-# Welcome to your Expo app 👋
+# 🌱 CS 188 HCI Grow Garden
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Authored by Na-yoon Kang, Brandon Huang, James Wang, Gabriel Macatula, and Bryan Mui
 
-## Get started
+---
 
-1. Install dependencies
+## 🧭 Overview
+
+This repository contains an [Expo](https://expo.dev) project bootstrapped with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app). It powers Grow Garden, an HCI project focused on making plant care playful and trackable.
+
+You can start developing by editing files inside the `app` directory. The project uses [file-based routing](https://docs.expo.dev/router/introduction), so new routes are just new files.
+
+---
+
+## 🚀 Quick Start
+
+1. **Install dependencies**
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. **Start the dev server**
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+The Expo CLI output lets you launch the app via:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [development builds](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- [Expo Go](https://expo.dev/go) for lightweight testing
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 🌼 First Interaction Tutorial
 
-When you're ready, run:
+1. Launch the app (desktop browser, Android emulator, or iOS simulator) and wait for the Grow Garden logo to bloom.
+2. Tap the watering can to begin hydrating your plant.
+3. Continue watering until you see the water indicator ping—this confirms enough hydration.
+4. 🎉 Daily watering complete! The session is now logged.
 
-```bash
-npm run reset-project
-```
+---
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 📚 Helpful Resources
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo documentation](https://docs.expo.dev/) — fundamentals plus deep dives
+- [Guides collection](https://docs.expo.dev/guides/) — recipes for common tasks
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/) — build a cross-platform app step by step

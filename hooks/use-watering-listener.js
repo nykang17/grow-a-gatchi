@@ -8,15 +8,21 @@ export function useWateringListener() {
 
     useEffect(() => {
         // Listen to watering events in the database (assumed path: 'watering_events/latest')
-        const wateringRef = ref(database, 'watering_events/latest');
+        const wateringRef = ref(database, 'watering/latest');
 
         const unsubscribe = onValue(wateringRef, (snapshot) => {
+            console.log('Watering event snapshot:', snapshot.val());
             const data = snapshot.val();
             if (data && data.timestamp) {
                 // Check if this is a new watering event (within last 5 seconds)
-                const eventTime = new Date(data.timestamp).getTime();
+                let timestamp = data.timestamp;
+                // if (!timestamp.endsWith('Z') && !timestamp.includes('+')) {
+                //     timestamp += 'Z';
+                // }
+                const eventTime = new Date(timestamp).getTime();
                 const now = Date.now();
                 
+                console.log('Event time:', eventTime, 'Now:', now, 'Difference:', now - eventTime);
                 if (now - eventTime < 5000) {
                 setJustWatered(true);
                 setLastWateredAt(data.timestamp);

@@ -2,14 +2,16 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: "API_KEY",
-  authDomain: "PROJECT.firebaseapp.com",
-  databaseURL: "https://whatever.firebaseio.com",
-  projectId: "PROJECT_ID",
-  storageBucket: "PROJECT.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID"
+  apiKey: "REMOVED",
+  authDomain: "REMOVED",
+  databaseURL: "REMOVED",
+  projectId: "REMOVED",
+  storageBucket: "REMOVED.firebasestorage.app",
+  messagingSenderId: "REMOVED",
+  appId: "1:REMOVED:web:041620661defe78f38e535",
+  measurementId: "REMOVED"
 };
+
 
 const app = initializeApp(firebaseConfig);
 export const database = getDatabase(app);

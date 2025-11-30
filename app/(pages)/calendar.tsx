@@ -28,14 +28,24 @@ export default function CalendarScreen() {
       {/* Header override */}
       <Stack.Screen
         options={{
-          title: 'Calendar',
+          title: '',
           headerTintColor: headerTint,
           headerLeft: () => (
             <Pressable
               onPress={() => router.back()}
               style={{ paddingHorizontal: 18, paddingVertical: 6 }}
             >
-              <Text style={{ fontSize: 28, color: 'black' }}>←</Text>
+              <ThemedText
+                type="title"
+                style={{
+                  fontFamily: Fonts.rounded,
+                  textAlign: 'center',
+                }}
+                darkColor='black'
+                lightColor='black'
+              >
+                ←
+              </ThemedText>
             </Pressable>
           ),
         }}

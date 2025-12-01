@@ -1,27 +1,38 @@
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, ActivityIndicator } from 'react-native';
 import { Stack, router } from 'expo-router';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Fonts } from '@/constants/theme';
+import { useWateringHistory } from '@/hooks/use-watering-history';
+
 
 // PLACEHOLDER VALUES CHANGE LATER - WIP
 // Format: { "2025-02-15": "watered", "2025-02-16": "missed", ... }
-const wateringData = {
-  "2025-02-10": "watered",
-  "2025-02-12": "missed",
-  "2025-02-14": "upcoming",
-  "2025-02-16": "upcoming",
-};
+// const wateringData = {
+//   "2025-02-10": "watered",
+//   "2025-02-12": "missed",
+//   "2025-02-14": "upcoming",
+//   "2025-02-16": "upcoming",
+// };
 
 export default function CalendarScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const headerTint = '#111'; // force visible
+  const { wateringData, loading } = useWateringHistory();
 
   const year = new Date().getFullYear();
 
   // generate all months and days for the full year
   const months = Array.from({ length: 12 }, (_, i) => new Date(year, i));
+
+  if (loading) {
+    return (
+      <ThemedView style={styles.container} darkColor="white" lightColor="white">
+        <ActivityIndicator size="large" color="#4CAF50" />
+      </ThemedView>
+    );
+  }
 
   return (
     <>
@@ -94,7 +105,7 @@ export default function CalendarScreen() {
                     }
 
                     const dateKey = `${year}-${String(index + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                    const status = wateringData[dateKey];
+                    const status = (wateringData as Record<string, 'watered' | 'missed' | 'upcoming' | undefined>)[dateKey];
 
                     // Style day according to watering status
                     let dayStyle = styles.dayNumber;

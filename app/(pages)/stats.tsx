@@ -1,21 +1,33 @@
-import { StyleSheet, View, Pressable } from 'react-native';
+import { StyleSheet, View, Pressable, ActivityIndicator } from 'react-native';
 import { Stack, router } from 'expo-router';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Fonts } from '@/constants/theme';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useWateringStats } from '@/hooks/use-watering-stats';
+
 
 export default function StatsScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const headerTint = colorScheme === 'dark' ? '#fff' : '#111';
+  const { stats, loading } = useWateringStats();
+
 
   // PLACEHOLDER VALUES CHANGE LATER - WIP
-  const stats = {
-    timesWatered: 12,
-    longestStreak: 5,
-    currentStreak: 2,
-  };
+  // const stats = {
+  //   timesWatered: 12,
+  //   longestStreak: 5,
+  //   currentStreak: 2,
+  // };
+  if (loading) {
+    return (
+      <ThemedView style={styles.container}>
+        <ActivityIndicator size="large" color="#4CAF50" />
+      </ThemedView>
+    );
+  }
+
 
   return (
     <>

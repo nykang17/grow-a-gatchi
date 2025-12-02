@@ -1,23 +1,36 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, View } from "react-native";
 
-const FRAME_WIDTH = 300;
-const FRAME_HEIGHT = 419;
+type SpriteState = "dry" | "idle" | "watering";
+
 const TOTAL_FRAMES = 8;
 
+// Dimensions for each sprite type
+const SPRITE_SIZES = {
+  idle:  { width: 1200 / 4, height: 838 / 2 },     // 4 columns, 2 rows
+  dry:   { width: 1076 / 4, height: 816 / 2 },
+  watering: { width: 1368 / 4, height: 960 / 2 },
+};
 
-// idle = 1200*838
-// dry = 1076 * 816
-// watering = 1368 * 960
+// PNG imports
+const SPRITE_IMAGES = {
+  idle: require("../assets/images/plant_idle.png"),
+  dry: require("../assets/images/plant_dry.png"),
+  watering: require("../assets/images/plant_watering.png"),
+};
 
-export default function Sprite() {
+export default function Sprite({ state }: { state: SpriteState }) {
   const frame = useRef(new Animated.Value(0)).current;
-  const currentFrame = useRef(0); // track frame manually
+  const currentFrame = useRef(0);
+
+  // Pick correct sprite attributes
+  const { width: FRAME_WIDTH, height: FRAME_HEIGHT } = SPRITE_SIZES[state];
+  const spriteSource = SPRITE_IMAGES[state];
 
   useEffect(() => {
     const interval = setInterval(() => {
       currentFrame.current = (currentFrame.current + 1) % TOTAL_FRAMES;
-      frame.setValue(currentFrame.current); // pass number, not function
+      frame.setValue(currentFrame.current);
     }, 100);
 
     return () => clearInterval(interval);
@@ -36,7 +49,7 @@ export default function Sprite() {
   return (
     <View style={{ width: FRAME_WIDTH, height: FRAME_HEIGHT, overflow: "hidden" }}>
       <Animated.Image
-        source={require("../assets/images/plant_idle.png")} //plant_dry, plant_idle, plant_watering
+        source={spriteSource}
         style={{
           width: FRAME_WIDTH * 4,
           height: FRAME_HEIGHT * 2,

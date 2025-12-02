@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import Sprite from '../../components/sprite'; // 👈 import
 import { useWateringListener } from '../../hooks/use-watering-listener';
 
 export default function HomeScreen() {
@@ -8,7 +9,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>🌱 Grow Garden</Text>
       {/* <Text style={styles.title}>Number of times watered: {timesWatered}</Text> */}
-      
+      <Sprite />
       {justWatered && (
         <View style={styles.wateringAlert}>
           <Text style={styles.wateringText}>💧 Just got watered!</Text>

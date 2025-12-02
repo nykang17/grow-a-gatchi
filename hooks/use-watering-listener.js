@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { ref, onValue, set, get, update} from 'firebase/database';
+import { get, onValue, ref, update } from 'firebase/database';
+import { useEffect, useRef, useState } from 'react';
 import { database } from '../config/firebase';
 
 const getDateKey = (date) => {
@@ -136,12 +136,21 @@ export function useWateringListener() {
 
         // Load initial stats
         const loadInitialStats = async () => {
-        const statsRef = ref(database, 'watering/stats');
-        const snapshot = await get(statsRef);
-        if (snapshot.exists()) {
-            console.log('Initial stats loaded:', snapshot.val());
-            setTimesWatered(snapshot.val().timesWatered);
-        }
+            const statsRef = ref(database, 'watering/stats');
+            const wateringRef = ref(database, 'watering/latest');
+
+            const [statsSnap, wateringSnap] = await Promise.all([
+                get(statsRef),
+                get(wateringRef),
+            ]);
+
+            if (statsSnap.exists()) {
+                setTimesWatered(statsSnap.val().timesWatered);
+            }
+
+            if (wateringSnap.exists() && wateringSnap.val()?.timestamp) {
+                setLastWateredAt(wateringSnap.val().timestamp);
+            }
         };
         loadInitialStats();
 

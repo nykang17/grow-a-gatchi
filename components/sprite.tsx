@@ -1,9 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, View } from "react-native";
 
-const FRAME_WIDTH = 384;
-const FRAME_HEIGHT = 512;
+const FRAME_WIDTH = 300;
+const FRAME_HEIGHT = 419;
 const TOTAL_FRAMES = 8;
+
+
+// idle = 1200*838
+// dry = 1076 * 816
+// watering = 1368 * 960
 
 export default function Sprite() {
   const frame = useRef(new Animated.Value(0)).current;
@@ -31,7 +36,7 @@ export default function Sprite() {
   return (
     <View style={{ width: FRAME_WIDTH, height: FRAME_HEIGHT, overflow: "hidden" }}>
       <Animated.Image
-        source={require("../assets/images/healthy.png")}
+        source={require("../assets/images/plant_idle.png")} //plant_dry, plant_idle, plant_watering
         style={{
           width: FRAME_WIDTH * 4,
           height: FRAME_HEIGHT * 2,

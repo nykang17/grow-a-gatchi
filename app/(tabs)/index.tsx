@@ -12,10 +12,10 @@ export default function HomeScreen() {
   // If watering just happened, temporarily force sprite = "watering"
   const [showWateringSprite, setShowWateringSprite] = useState(false);
 
-  // Detect dry state (not currently working)
-  const isDry =
-    lastWateredAt &&
-    Date.now() - lastWateredAt > DRY_THRESHOLD;
+  // Detect dry state
+  const isDry = lastWateredAt
+    ? Date.now() - new Date(lastWateredAt).getTime() > DRY_THRESHOLD
+    : false;
 
   // --- Handle switching to watering sprite for a few seconds ---
   useEffect(() => {

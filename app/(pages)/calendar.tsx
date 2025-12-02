@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet, Pressable, ScrollView, ActivityIndicator } from 'react-native';
-import { Stack, router } from 'expo-router';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Fonts } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useWateringHistory } from '@/hooks/use-watering-history';
-
+import { Stack, router } from 'expo-router';
+import { useEffect, useRef } from 'react';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 // PLACEHOLDER VALUES CHANGE LATER - WIP
 // Format: { "2025-02-15": "watered", "2025-02-16": "missed", ... }
@@ -25,6 +25,20 @@ export default function CalendarScreen() {
 
   // generate all months and days for the full year
   const months = Array.from({ length: 12 }, (_, i) => new Date(year, i));
+
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  useEffect(() => {
+    const currentMonthIndex = new Date().getMonth(); // 0-based index (0 = Jan)
+
+    // Wait a short moment to ensure ScrollView is rendered
+    setTimeout(() => {
+      scrollViewRef.current?.scrollTo({
+        y: currentMonthIndex * 350, // approximate height of each month container
+        animated: false,
+      });
+    }, 100);
+  }, []);
 
   if (loading) {
     return (
@@ -63,7 +77,7 @@ export default function CalendarScreen() {
       />
 
       <ThemedView style={styles.container} darkColor="white" lightColor="white">
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false}>
           {months.map((month, index) => {
             const monthName = month.toLocaleString('default', { month: 'long' });
 

@@ -1,5 +1,7 @@
 # 🌱 CS 188 HCI Grow Garden
 
+![LOGO](LOGO.png "Grow-a-gatchi")
+
 Authored by Na-yoon Kang, Brandon Huang, James Wang, Gabriel Macatula, and Bryan Mui
 
 ---

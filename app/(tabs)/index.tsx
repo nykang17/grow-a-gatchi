@@ -42,12 +42,6 @@ export default function HomeScreen() {
 
       <Sprite state={spriteState} />
 
-      {justWatered && (
-        <View style={styles.wateringAlert}>
-          <Text style={styles.wateringText}>💧 Just got watered!</Text>
-        </View>
-      )}
-
       {lastWateredAt && (
         <Text style={styles.lastWatered}>
           Last watered: {new Date(lastWateredAt).toLocaleString()}

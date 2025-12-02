@@ -61,6 +61,14 @@ const calculateStreaks = (historyData) => {
   return { currentStreak, longestStreak };
 };
 
+const calculateTotalWaterings = (historyData) => {
+  if (!historyData) return 0;
+
+  return Object.values(historyData).reduce((total, entry) => {
+    return total + (entry.count || 1);
+  }, 0);
+};
+
 export function useWateringStats() {
   const [stats, setStats] = useState({
     timesWatered: 0,
@@ -76,8 +84,9 @@ export function useWateringStats() {
 
       const historySnapshot = await get(historyRef);
       const historyData = historySnapshot.val() || {};
-
-      const totalWaterings = Object.keys(historyData).length;
+      
+      const totalWaterings = calculateTotalWaterings(historyData);
+      // const totalWaterings = Object.keys(historyData).length;
       const { currentStreak, longestStreak } = calculateStreaks(historyData);
 
       // Get existing stats to preserve longestStreak if it's higher

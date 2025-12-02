@@ -7,7 +7,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>🌱 Grow Garden</Text>
-      <Text style={styles.title}>Number of times watered: {timesWatered}</Text>
+      {/* <Text style={styles.title}>Number of times watered: {timesWatered}</Text> */}
       
       {justWatered && (
         <View style={styles.wateringAlert}>

@@ -63,6 +63,15 @@ const calculateStreaks = (historyData) => {
     return { currentStreak, longestStreak };
 };
 
+// Helper to calculate total waterings from history
+const calculateTotalWaterings = (historyData) => {
+    if (!historyData) return 0;
+
+    return Object.values(historyData).reduce((total, entry) => {
+        return total + (entry.count || 1);
+    }, 0);
+};
+
 export function useWateringListener() {
     const [justWatered, setJustWatered] = useState(false);
     const [lastWateredAt, setLastWateredAt] = useState(null);
@@ -103,7 +112,8 @@ export function useWateringListener() {
 
                     const currentStats = statsSnapshot.val() || { timesWatered: 0, longestStreak: 0 };
                     const historyData = allHistorySnapshot.val() || {};
-                    const totalWaterings = Object.keys(historyData).length;
+                    const totalWaterings = calculateTotalWaterings(historyData);
+                    // const totalWaterings = Object.keys(historyData).length;
 
                     const { currentStreak, longestStreak } = calculateStreaks(historyData);
 

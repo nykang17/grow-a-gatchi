@@ -7,15 +7,6 @@ import { Stack, router } from 'expo-router';
 import { useEffect, useRef } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-// PLACEHOLDER VALUES CHANGE LATER - WIP
-// Format: { "2025-02-15": "watered", "2025-02-16": "missed", ... }
-// const wateringData = {
-//   "2025-02-10": "watered",
-//   "2025-02-12": "missed",
-//   "2025-02-14": "upcoming",
-//   "2025-02-16": "upcoming",
-// };
-
 export default function CalendarScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const headerTint = '#111'; // force visible
@@ -62,10 +53,7 @@ export default function CalendarScreen() {
             >
               <ThemedText
                 type="title"
-                style={{
-                  fontFamily: Fonts.rounded,
-                  textAlign: 'center',
-                }}
+                style={{ fontFamily: Fonts.rounded, textAlign: 'center' }}
                 darkColor='black'
                 lightColor='black'
               >
@@ -77,6 +65,25 @@ export default function CalendarScreen() {
       />
 
       <ThemedView style={styles.container} darkColor="white" lightColor="white">
+
+        {/* Added color key */}
+        <View style={styles.keyContainer}>
+          <View style={styles.keyItem}>
+            <View style={[styles.keyColor, { backgroundColor: 'rgba(244,67,54,0.35)' }]} />
+            <Text style={styles.keyLabel}>Missed</Text>
+          </View>
+
+          <View style={styles.keyItem}>
+            <View style={[styles.keyColor, { backgroundColor: 'rgba(76,175,80,0.35)' }]} />
+            <Text style={styles.keyLabel}>Watered</Text>
+          </View>
+
+          <View style={styles.keyItem}>
+            <View style={[styles.keyColor, { backgroundColor: 'rgba(33,150,243,0.35)' }]} />
+            <Text style={styles.keyLabel}>Planned</Text>
+          </View>
+        </View>
+
         <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false}>
           {months.map((month, index) => {
             const monthName = month.toLocaleString('default', { month: 'long' });
@@ -148,6 +155,33 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgb(241, 241, 241)',
     padding: 20,
+  },
+
+  keyContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 15,
+    flexWrap: 'wrap',
+  },
+
+  keyItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 10,
+    marginVertical: 4,
+  },
+
+  keyColor: {
+    width: 16,
+    height: 16,
+    borderRadius: 4,
+    marginRight: 6,
+  },
+
+  keyLabel: {
+    fontSize: 14,
+    color: 'black',
+    fontWeight: '600',
   },
 
   monthContainer: {

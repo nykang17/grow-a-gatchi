@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Sprite from '../../components/sprite';
 import { useWateringListener } from '../../hooks/use-watering-listener';
 
-const DRY_THRESHOLD = 2 * 24 * 60 * 60 * 1000; // 2 days
+const DRY_THRESHOLD = 10000;//2 * 24 * 60 * 60 * 1000; // 2 days
 const WATERING_DISPLAY_DURATION = 3000; // 3 seconds
 
 export default function HomeScreen() {
@@ -12,7 +12,7 @@ export default function HomeScreen() {
   // If watering just happened, temporarily force sprite = "watering"
   const [showWateringSprite, setShowWateringSprite] = useState(false);
 
-  // Detect dry state
+  // Detect dry state (not currently working)
   const isDry =
     lastWateredAt &&
     Date.now() - lastWateredAt > DRY_THRESHOLD;

@@ -19,6 +19,13 @@ const SPRITE_IMAGES = {
   watering: require("../assets/images/plant_watering.png"),
 };
 
+
+const FRAME_SPEED = {
+  idle: 400,
+  dry: 600,
+  watering: 100,
+};
+
 export default function Sprite({ state }: { state: SpriteState }) {
   const frame = useRef(new Animated.Value(0)).current;
   const currentFrame = useRef(0);
@@ -31,7 +38,7 @@ export default function Sprite({ state }: { state: SpriteState }) {
     const interval = setInterval(() => {
       currentFrame.current = (currentFrame.current + 1) % TOTAL_FRAMES;
       frame.setValue(currentFrame.current);
-    }, 100);
+    }, FRAME_SPEED[state]);
 
     return () => clearInterval(interval);
   }, []);

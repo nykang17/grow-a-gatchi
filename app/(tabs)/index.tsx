@@ -86,7 +86,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>🌱 Grow Garden</Text>
+      <Text style={styles.title}>🌱 Grow-a-Gatchi</Text>
 
       <Sprite state={spriteState} />
 

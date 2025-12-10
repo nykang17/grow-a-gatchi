@@ -3,6 +3,7 @@
 Introducing Grow-a-gatchi! Grow-a-gatchi aims to counter the lack of immediate gratification through linking real-life maintenance of a plant to a virtual space. The users can see their progress through maintaining a plant sprite alongside their real-life counterpart. In addition to the gratification gained by seeing the virtual plant’s expression changes and leveling up, the app helps maintain consistency through educating, tracking, and notifying the user of a proper watering schedule. The app aims to provide a non-intrusive solution to assist aspiring gardeners, no matter their current situation. 
 
 ![Figure 1: Photo of system from 12/3 Design Showcase](./images/image1.png)
+
 Figure 1: Photo of system from 12/3 Design Showcase
 
 # Problem Statement  
@@ -36,6 +37,7 @@ This system implements a traditional tamagotchi software system in combination w
 For specifics on the hardware side, the IMU constantly feeds the RPi acceleration data which the RPi then uses to calculate the IMU's angle. This process makes use of and slightly modifies [Ozzmaker's BerryIMU library](https://github.com/ozzmaker/BerryIMU) for the purpose of pipelining the data. The angle readings calculated from the IMU are processed in a simple python script running locally on the RPi; this python script essentially times how long the user has held the watering can at a certain angle and determines if the time is enough to constitute a watering action. If so, the RPi sends a ping to our dedicated Firebase database with a timestamp and other metadata, and our software takes over from there.
 
 ![Figure 2: Block diagram of the Grow-a-Gatchi system](./images/image2.png)
+
 Figure 2: Block diagram of the Grow-a-Gatchi system
 
 On the software side, the app itself contains an animated tamagotchi as well as two subpages, the calendar page and statistics page. The app constantly listens for changes in the database records triggered by the hardware and plays a watering animation for the tamagotchi whenever a watering event is detected. The stats and calendar pages are simultaneously updated with the new watering event, as they draw data from the database as well. The calendar page essentially shows past days where the user has or hasn't watered their plant as well as future days where the user should water their plant, and the statistics page shows how many times they've watered their plant, their longest watering streak, and their current watering streak. 

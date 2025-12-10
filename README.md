@@ -14,6 +14,9 @@ You can start developing by editing files inside the `app` directory. The projec
 
 The source code run on our Raspberry Pi 5 is located at https://github.com/Gafrindle/grow-garden-hardware
 
+An overview of this project can be seen in the below showcase poster.
+![LOGO](POSTER.png "poster")
+
 ---
 
 ## 🚀 Quick Start

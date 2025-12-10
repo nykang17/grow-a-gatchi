@@ -12,6 +12,8 @@ This repository contains an [Expo](https://expo.dev) project bootstrapped with [
 
 You can start developing by editing files inside the `app` directory. The project uses [file-based routing](https://docs.expo.dev/router/introduction), so new routes are just new files.
 
+The source code run on our Raspberry Pi 5 is located at https://github.com/Gafrindle/grow-garden-hardware
+
 ---
 
 ## 🚀 Quick Start

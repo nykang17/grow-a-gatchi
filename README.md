@@ -1,5 +1,7 @@
 # 🌱 CS 188 HCI Grow Garden
 
+![LOGO](LOGO.png "Grow-a-gatchi")
+
 Authored by Na-yoon Kang, Brandon Huang, James Wang, Gabriel Macatula, and Bryan Mui
 
 ---
@@ -9,6 +11,11 @@ Authored by Na-yoon Kang, Brandon Huang, James Wang, Gabriel Macatula, and Bryan
 This repository contains an [Expo](https://expo.dev) project bootstrapped with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app). It powers Grow Garden, an HCI project focused on making plant care playful and trackable.
 
 You can start developing by editing files inside the `app` directory. The project uses [file-based routing](https://docs.expo.dev/router/introduction), so new routes are just new files.
+
+The source code run on our Raspberry Pi 5 is located at https://github.com/Gafrindle/grow-garden-hardware
+
+An overview of this project can be seen in the below showcase poster.
+![LOGO](POSTER.png "poster")
 
 ---
 
@@ -38,9 +45,19 @@ The Expo CLI output lets you launch the app via:
 ## 🌼 First Interaction Tutorial
 
 1. Launch the app (desktop browser, Android emulator, or iOS simulator) and wait for the Grow Garden logo to bloom.
-2. Tap the watering can to begin hydrating your plant.
-3. Continue watering until you see the water indicator ping—this confirms enough hydration.
+2. Tilt watering can to begin hydrating your plant.
+3. Continue watering until you see the plant's water bar has filled up, and a watering can appears above the sprite.
 4. 🎉 Daily watering complete! The session is now logged.
+
+---
+
+## 🌼 Second Interaction Tutorial
+
+1. Launch the app (desktop browser, Android emulator, or iOS simulator) and wait for the Grow Garden logo to bloom.
+2. Tap the "Stats" button to look at the stats page.
+3. Tap the return arrow to return to the home page.
+4. Tap the "Calendar" button to look at the calendar page.
+5. Tap the return arrow to return to the home page.
 
 ---
 

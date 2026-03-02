@@ -1,27 +1,43 @@
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
-import { Stack, router } from 'expo-router';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Fonts } from '@/constants/theme';
-
-// PLACEHOLDER VALUES CHANGE LATER - WIP
-// Format: { "2025-02-15": "watered", "2025-02-16": "missed", ... }
-const wateringData = {
-  "2025-02-10": "watered",
-  "2025-02-12": "missed",
-  "2025-02-14": "upcoming",
-  "2025-02-16": "upcoming",
-};
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useWateringHistory } from '@/hooks/use-watering-history';
+import { Stack, router } from 'expo-router';
+import { useEffect, useRef } from 'react';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function CalendarScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const headerTint = '#111'; // force visible
+  const { wateringData, loading } = useWateringHistory();
 
   const year = new Date().getFullYear();
 
   // generate all months and days for the full year
   const months = Array.from({ length: 12 }, (_, i) => new Date(year, i));
+
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  useEffect(() => {
+    const currentMonthIndex = new Date().getMonth(); // 0-based index (0 = Jan)
+
+    // Wait a short moment to ensure ScrollView is rendered
+    setTimeout(() => {
+      scrollViewRef.current?.scrollTo({
+        y: currentMonthIndex * 350, // approximate height of each month container
+        animated: false,
+      });
+    }, 100);
+  }, []);
+
+  if (loading) {
+    return (
+      <ThemedView style={styles.container} darkColor="white" lightColor="white">
+        <ActivityIndicator size="large" color="#4CAF50" />
+      </ThemedView>
+    );
+  }
 
   return (
     <>
@@ -37,10 +53,7 @@ export default function CalendarScreen() {
             >
               <ThemedText
                 type="title"
-                style={{
-                  fontFamily: Fonts.rounded,
-                  textAlign: 'center',
-                }}
+                style={{ fontFamily: Fonts.rounded, textAlign: 'center' }}
                 darkColor='black'
                 lightColor='black'
               >
@@ -52,7 +65,26 @@ export default function CalendarScreen() {
       />
 
       <ThemedView style={styles.container} darkColor="white" lightColor="white">
-        <ScrollView showsVerticalScrollIndicator={false}>
+
+        {/* Added color key */}
+        <View style={styles.keyContainer}>
+          <View style={styles.keyItem}>
+            <View style={[styles.keyColor, { backgroundColor: 'rgba(244,67,54,0.35)' }]} />
+            <Text style={styles.keyLabel}>Missed</Text>
+          </View>
+
+          <View style={styles.keyItem}>
+            <View style={[styles.keyColor, { backgroundColor: 'rgba(76,175,80,0.35)' }]} />
+            <Text style={styles.keyLabel}>Watered</Text>
+          </View>
+
+          <View style={styles.keyItem}>
+            <View style={[styles.keyColor, { backgroundColor: 'rgba(33,150,243,0.35)' }]} />
+            <Text style={styles.keyLabel}>Planned</Text>
+          </View>
+        </View>
+
+        <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false}>
           {months.map((month, index) => {
             const monthName = month.toLocaleString('default', { month: 'long' });
 
@@ -94,7 +126,7 @@ export default function CalendarScreen() {
                     }
 
                     const dateKey = `${year}-${String(index + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                    const status = wateringData[dateKey];
+                    const status = (wateringData as Record<string, 'watered' | 'missed' | 'upcoming' | undefined>)[dateKey];
 
                     // Style day according to watering status
                     let dayStyle = styles.dayNumber;
@@ -123,6 +155,33 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgb(241, 241, 241)',
     padding: 20,
+  },
+
+  keyContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 15,
+    flexWrap: 'wrap',
+  },
+
+  keyItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 10,
+    marginVertical: 4,
+  },
+
+  keyColor: {
+    width: 16,
+    height: 16,
+    borderRadius: 4,
+    marginRight: 6,
+  },
+
+  keyLabel: {
+    fontSize: 14,
+    color: 'black',
+    fontWeight: '600',
   },
 
   monthContainer: {
